@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ['bun', 'openssl']
+
+[phases.install]
+cmds = ['bun install']
+
+[phases.build]
+cmds = ['bun run build']
+
+[phases.prerun]
+cmds = ['mkdir -p db public/uploads']
+
+[start]
+cmd = 'bun prisma generate && bun prisma db push && NODE_ENV=production bun .next/standalone/server.js'
