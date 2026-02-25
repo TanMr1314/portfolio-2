@@ -1,0 +1,73 @@
+/* Magic Card Styles */
+.magic-card {
+  position: relative;
+  overflow: hidden;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-color: 94, 106, 210;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Glow effect on hover */
+.magic-card.glow-active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), 0.15) 0%,
+    rgba(var(--glow-color), 0.05) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Border glow effect */
+.magic-card.glow-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: radial-gradient(
+    250px circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), 0.6) 0%,
+    rgba(var(--glow-color), 0.2) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 1;
+}
+
+/* Particle styles */
+.magic-particle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Ripple effect */
+.magic-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Card content should be above effects */
+.magic-card > * {
+  position: relative;
+  z-index: 10;
+}

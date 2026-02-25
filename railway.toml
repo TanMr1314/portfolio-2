@@ -1,0 +1,16 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "bun prisma generate && bun prisma db push && mkdir -p db uploads && NODE_ENV=production bun .next/standalone/server.js"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[[volumes]]
+name = "data"
+mount = "/app/db"
+
+[[volumes]]
+name = "uploads"
+mount = "/app/uploads"
